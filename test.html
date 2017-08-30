@@ -1,0 +1,225 @@
+<p>User manual:</p>
+<p></p>
+<p>Important: before proceeding with this manual be sure to properly set up remote keyboard emulator, according to “Remote keyboard. User Manual”.</p>
+<p></p>
+<p>1. Installation:</p>
+<ol style="list-style-type: decimal">
+<li><p>Build From Source:</p>
+<p>Be sure to properly set-up boost libraries: <a href="http://www.boost.org/doc/libs/1_64_0/more/getting_started/windows.html" class="uri">http://www.boost.org/doc/libs/1_64_0/more/getting_started/windows.html</a></p></li>
+</ol>
+<p>Download Source Code:</p>
+<p><a href="https://github.com/extramask93/VK" class="uri">https://github.com/extramask93/VK</a></p>
+<p>Build with c++14 compiler. </p>
+<ol style="list-style-type: decimal">
+<li><p>Download Pre-compiled windows binary from:</p>
+<p><a href="https://github.com/extramask93/VK" class="uri">https://github.com/extramask93/VK</a></p>
+<p></p></li>
+</ol>
+<p>2. Version:</p>
+<p>This manual covers version 1.0 of VirtualKeyboard desktop application. To check Locally installed version please type virtualkeyboard.exe --version in Your windows console.</p>
+<p>3. Available Functions:</p>
+<p>Note: All of the listed options could be supplied from a file, named: “config.ini” or directly as command line arguments. To list all available options run virtualkeyboard.exe with [-h] parameter. Additionally to stop application while in <em>record </em>or <em>free </em>mode user should click F12 key.</p>
+<p><img src="Pictures/10000000000001BC000000E6B86551534DF12F82.png" width="444" height="229" /></p>
+<p></p>
+<p></p>
+<p></p>
+<p></p>
+<p></p>
+<p></p>
+<p></p>
+<p></p>
+<p></p>
+<p></p>
+<p></p>
+<p></p>
+<p>--verbose option is available mainly for debugging purposes, it lists every send packet structure in real time. User should avoid this option, it significantly impacts the performance.</p>
+<p>--macro option with text file argument lets the user run predefined macro script. It’s syntax is described in Appendix 1.</p>
+<p>-- setip lets user specify network card settings of a remote keyboard. Argumets should be given as follows: 1/0,ip adddress,port,Netmask,GateWay</p>
+<p>Where: 1 – dhcp</p>
+<p>0 – static settings</p>
+<p>When specifying dhcp, all the rest should be filled with zeros.</p>
+<p>-- record records and puts user actons into specified macro file. Not available in version 1.0</p>
+<p>-- free lets user to send keystrokes in real time from host computer to the remote keyboard. To actually capture anything, should be used with --keyboard and --mouse switches.</p>
+<p>-- keyboard switch used in combination with --free and --record option. Hooks into keyboard procedure. </p>
+<p>-- mouse switch used in combination with --free and --record option. Hooks into mouse procedure. </p>
+<p>-- dual switch specifies that every keystroke will be executed on host and remote machine.</p>
+<p>-- singular switch specifies that every keystroke will be executed only on remote machine.</p>
+<p>-- ip specifies ip or a remote keyboard,</p>
+<p>-- port specifies port of a remote keyboard,</p>
+<p></p>
+<p>Appendix 1</p>
+<p>Macro structure.</p>
+<p></p>
+<p>To ease usage macro could be written in 2 modes, that is: short and long. Both modes could be contained in single file, given that they would be separated by line with [SHORT] or [LONG] specifier depending what mode starting point it marks. </p>
+<p></p>
+<p>Short mode:</p>
+<p>This mode is somewhat crippled, but lets user prototype faster. It’s main disadvantage is that it allows to only write to keyboard and only click or move the mouse. No prolonged push here, that is it does not hold a button.</p>
+<p><strong>Syntax:</strong></p>
+<p>For printable characters – they can be specified as is, separated by a white-character. Example: </p>
+<p>[SHORT]</p>
+<p>H e l l o w o r l d </p>
+<p>For non-printable characters – they should be consulted with Table 1 to determine their identificator.</p>
+<p>Example:</p>
+<p>[SHORT]</p>
+<p>H e l l o KEY_RETURN w o r l d</p>
+<p>For mouse actions there are only two:</p>
+<p>MMx,y,wheel – where x,y, determine incremental mouse cursor position change in range [-127;127]</p>
+<p>and wheel determines wheel rotation in range [-127;127]</p>
+<p>MCbutton – where button could be LPM or PPM indicating left and right mouse click accordingly.</p>
+<p>Example:</p>
+<p>MM100,100,0 MM100,-20,0</p>
+<p>MCLPM MCLPM</p>
+<p></p>
+<p>Table 1:</p>
+<table>
+<tbody>
+<tr class="odd">
+<td>KEY_UP_ARROW</td>
+</tr>
+<tr class="even">
+<td>KEY_DOWN_ARROW</td>
+</tr>
+<tr class="odd">
+<td>KEY_LEFT_ARROW</td>
+</tr>
+<tr class="even">
+<td>KEY_RIGHT_ARROW</td>
+</tr>
+<tr class="odd">
+<td>KEY_BACKSPACE</td>
+</tr>
+<tr class="even">
+<td>KEY_TAB</td>
+</tr>
+<tr class="odd">
+<td>KEY_RETURN</td>
+</tr>
+<tr class="even">
+<td>KEY_ESC</td>
+</tr>
+<tr class="odd">
+<td>KEY_INSERT</td>
+</tr>
+<tr class="even">
+<td>KEY_DELETE</td>
+</tr>
+<tr class="odd">
+<td>KEY_PAGE_UP</td>
+</tr>
+<tr class="even">
+<td>KEY_HOME</td>
+</tr>
+<tr class="odd">
+<td>KEY_END</td>
+</tr>
+<tr class="even">
+<td>KEY_CAPS_LOCK</td>
+</tr>
+<tr class="odd">
+<td>KEY_F1</td>
+</tr>
+<tr class="even">
+<td>KEY_F...</td>
+</tr>
+<tr class="odd">
+<td>KEY_F12</td>
+</tr>
+<tr class="even">
+<td>KEY_SPACE</td>
+</tr>
+</tbody>
+</table>
+<p></p>
+<p></p>
+<p>Long mode:</p>
+<p>This mode while being heavy typing oriented offers: button combinations, delays and single nested loops.</p>
+<p>Syntax:</p>
+<p>Main syntax rule is that every command should be in separate line and there should be space between command and it’s parameters.</p>
+<p>Available commands:</p>
+<table>
+<tbody>
+<tr class="odd">
+<td>Command name</td>
+<td>Parameters</td>
+<td>Description</td>
+</tr>
+<tr class="even">
+<td>delayS</td>
+<td>Non-negative integer</td>
+<td>Delays given amount of seconds.</td>
+</tr>
+<tr class="odd">
+<td>delayMS</td>
+<td>Non-negative integer</td>
+<td>Delays given amount of miliseconds.</td>
+</tr>
+<tr class="even">
+<td>keyboardPush</td>
+<td>Printable character or identificator from Table 1</td>
+<td>Pushes specified key on the keyboard</td>
+</tr>
+<tr class="odd">
+<td>keyboardWrite</td>
+<td>Printable character or identificator from Table 1</td>
+<td>Pushes and relases specified key on the keyboard</td>
+</tr>
+<tr class="even">
+<td>keyboardRelease</td>
+<td>Printable character or identificator from Table 1</td>
+<td>Releases specified key on the keyboard</td>
+</tr>
+<tr class="odd">
+<td>keyboardReleaseAll</td>
+<td>No parameter</td>
+<td>Releases all keys currently pressed on the keyboard</td>
+</tr>
+<tr class="even">
+<td>mouseMove</td>
+<td>X,Y,Wheel in range[-127;127]</td>
+<td>Moves mouse by specified amount</td>
+</tr>
+<tr class="odd">
+<td>mouseReleaseAll</td>
+<td>No parameter</td>
+<td>Releases all keys currently pressed on the mouse</td>
+</tr>
+<tr class="even">
+<td>mouseRelease</td>
+<td>LPM or PPM</td>
+<td>Releases specified key on the mouse</td>
+</tr>
+<tr class="odd">
+<td>mousePush</td>
+<td>LPM or PPM</td>
+<td>Presses specified key on the mouse</td>
+</tr>
+<tr class="even">
+<td>mouseClick</td>
+<td>LPM or PPM</td>
+<td>Clicks specified key on the mouse</td>
+</tr>
+<tr class="odd">
+<td>DO</td>
+<td>Non negative number of iterations </td>
+<td>Repeats commands specified between this command and corresponding END given amount of times.</td>
+</tr>
+<tr class="even">
+<td>END</td>
+<td>No paramters</td>
+<td>Ends corresponding DO loops</td>
+</tr>
+</tbody>
+</table>
+<p></p>
+<p>Example:</p>
+<p>[LONG]</p>
+<p>DO 5</p>
+<p>keyboardPush KEY_SHIFT</p>
+<p>keyboardPush KEY_DELETE</p>
+<p>keyboardReleaseAll</p>
+<p>END</p>
+<p></p>
+<p></p>
+<p></p>
+<p>NOTE:</p>
+<p>Application facilities only basic error checking for macro files. Generally it’s behavior under such an error is undefined.</p>
